@@ -3,12 +3,10 @@ package handlers
 import (
 	"bytes"
 	"encoding/json"
+	"gin-rest-template/internal/models"
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
-	"gin-rest-template/internal/config"
-	"gin-rest-template/internal/models"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
@@ -20,7 +18,7 @@ func TestHealthCheck(t *testing.T) {
 
 	// Setup router
 	r := gin.Default()
-	
+
 	// Mock handler
 	r.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, models.SuccessResponse{
@@ -52,7 +50,7 @@ func TestRegisterValidation(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 
 	r := gin.Default()
-	
+
 	r.POST("/register", func(c *gin.Context) {
 		var req models.RegisterRequest
 		if err := c.ShouldBindJSON(&req); err != nil {
